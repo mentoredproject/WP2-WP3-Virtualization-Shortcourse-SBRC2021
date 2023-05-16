@@ -1,0 +1,30 @@
+apiVersion: knetlab.rnp.br/v1
+kind: Device
+metadata:
+  name: client
+  namespace: lab1
+  actor: client
+spec:
+  template:
+    spec:
+      containers:
+        - name: client
+          image: 172.18.0.2:5000/nelson/client:latest
+          #imagePullPolicy: IfNotPresent
+          env:
+            - name: SERVER
+              value: "100"
+            - name: CLIENT
+              value: "2"
+
+            - name: NETINTERFACE
+              value: "to-sw3"
+
+          command: ["/root/entry.sh"]
+          securityContext:
+            privileged: true
+            capabilities:
+              add: ["NET_ADMIN"]
+          stdin: true
+          tty: true
+          

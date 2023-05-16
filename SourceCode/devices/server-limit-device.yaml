@@ -1,0 +1,46 @@
+apiVersion: knetlab.rnp.br/v1
+kind: Device
+metadata:
+  name: server
+  namespace: lab1
+  actor: server
+spec:
+  template:
+    spec:
+      containers:
+        - name: tcpdump
+          image: 172.18.0.2:5000/nelson/tcpdump
+          #command: ["/bin/sh"]
+          
+          env:
+            - name: SERVER
+              value: "100"
+            - name: BOTID
+              value: "3"  
+            - name: CLIENT
+              value: "2"
+
+            - name: NETINTERFACE
+              value: "to-sw1"
+
+          command: ["/root/entry.sh"]
+          #command: ["tail", "-f", "/dev/null"]
+          securityContext:
+            privileged: true
+            capabilities:
+              add: ["NET_ADMIN"]
+          stdin: true
+          tty: true
+
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+          securityContext:
+            privileged: true
+            capabilities:
+              add: ["NET_ADMIN"]
+          stdin: true
+          tty: true
+
+   

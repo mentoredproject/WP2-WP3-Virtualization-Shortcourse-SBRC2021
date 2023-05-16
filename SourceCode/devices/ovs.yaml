@@ -1,0 +1,19 @@
+apiVersion: knetlab.rnp.br/v1
+kind: Device
+metadata:
+  name: ovs
+  namespace: lab1
+  actor: ovs
+spec:
+  template:
+    spec:
+      containers:
+        - name: ovs
+          image: 172.18.0.2:5000/nelson/ovs:latest
+          command: ["/root/entry.sh"]
+          securityContext:
+            privileged: true
+            capabilities:
+              add: ["NET_ADMIN"]
+          stdin: true
+          tty: true

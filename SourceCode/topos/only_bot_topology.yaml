@@ -1,0 +1,25 @@
+apiVersion: knetlab.rnp.br/v1beta1
+kind: Topology
+metadata:
+  name: topo-host
+spec:
+  devices:
+    - name: bot
+      type: bot
+      model: bot
+      region: rn
+      config: ""
+    - name: bot2
+      type: bot
+      model: bot
+      region: sc
+      config: ""
+
+  links:
+    - name: link-bot-sw2
+      source:
+        name: bot
+        ifname: to-bot2
+      destination:
+        name: bot2
+        ifname: from-bot1

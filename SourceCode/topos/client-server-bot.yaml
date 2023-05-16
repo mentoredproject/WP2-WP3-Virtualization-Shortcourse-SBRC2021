@@ -1,0 +1,77 @@
+apiVersion: knetlab.rnp.br/v1beta1
+kind: Topology
+metadata:
+  name: topo-host
+spec:
+  devices:
+    - name: sw1
+      type: switch
+      model: ovs-bnd
+      region: sc
+      config: ""
+    - name: sw2
+      type: switch
+      model: ovs
+      region: rn
+      config: ""
+    - name: sw3
+      type: switch
+      model: ovs
+      region: pb
+      config: ""
+    - name: client
+      type: client
+      model: client
+      region: pb
+      config: ""
+    - name: server
+      type: server
+      model: server
+      region: sc
+      config: ""
+    - name: bot
+      type: bot
+      model: bot
+      region: rn
+      config: ""
+
+  links:
+    - name: link-server-sw1
+      source:
+        name: server
+        ifname: to-sw1
+      destination:
+        name: sw1
+        ifname: from-server
+
+    - name: link-bot-sw2
+      source:
+        name: bot
+        ifname: to-sw2
+      destination:
+        name: sw2
+        ifname: from-bot
+
+    - name: link-client-sw3
+      source:
+        name: client
+        ifname: to-sw3
+      destination:
+        name: sw3
+        ifname: from-client
+
+    - name: link-sw1-sw2
+      source:
+        name: sw1
+        ifname: sw1-sw2
+      destination:
+        name: sw2
+        ifname: sw2-sw1
+    
+    - name: link-sw1-sw3
+      source:
+        name: sw1
+        ifname: sw1-sw3
+      destination:
+        name: sw3
+        ifname: sw3-sw1        

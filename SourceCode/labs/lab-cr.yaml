@@ -1,0 +1,7 @@
+apiVersion: knetlab.rnp.br/v1alpha1
+kind: Lab
+metadata:
+  name: lab1
+  namespace: knetlab
+spec:
+  topologies: []
